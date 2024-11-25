@@ -36,38 +36,81 @@ APPadel es una aplicación móvil diseñada para la gestión de reservas en un c
 ## Instalación
 
 ### Requisitos:
-- Android Studio 4.0 o superior.
 - Python 3.8 o superior.
-- Docker y Docker Compose.
+- Docker y Docker Compose (opcional).
+- Android Studio 4.0 o superior.
 
-### Backend:
-1. Clona el repositorio:
+---
+
+### Opción 1: Arrancar la API con Docker Compose
+
+1. **Clonar el repositorio**:
    ```bash
    git clone https://github.com/Outeamultimedia/APP_FullStackPadel.git
-   cd backend
+   cd APP_FullStackPadel
    ```
-2. Instala dependencias:
-   ```bash
-   pip install -r requirements.txt
-   ```
-3. Configura las variables de entorno:
-   Crea un archivo `.env` con las siguientes variables:
-   ```
+
+2. **Configurar las variables de entorno**:
+   Crea un archivo `.env` en el directorio `backend` con el siguiente contenido:
+   ```env
    SECRET_KEY=tu_clave_secreta
    DEBUG=True
    DATABASE_URL=mysql://usuario:contraseña@host:puerto/nombre_base_datos
    ```
-4. Inicia el servidor:
+
+3. **Iniciar los servicios con Docker Compose**:
+   ```bash
+   docker-compose up
+   ```
+
+   Esto levantará la API de Django, la base de datos MySQL y Nginx (si está configurado en el archivo `docker-compose.yml`).
+
+4. **Acceder a la API**:
+   La API estará disponible en `http://localhost:8000`.
+
+---
+
+### Opción 2: Arrancar la API de forma manual
+
+1. **Instalar dependencias del backend**:
+   ```bash
+   cd backend
+   pip install -r requirements.txt
+   ```
+
+2. **Configurar las variables de entorno**:
+   Crea un archivo `.env` en el directorio `backend` con el siguiente contenido:
+   ```env
+   SECRET_KEY=tu_clave_secreta
+   DEBUG=True
+   DATABASE_URL=mysql://usuario:contraseña@host:puerto/nombre_base_datos
+   ```
+
+3. **Aplicar migraciones**:
+   ```bash
+   python manage.py migrate
+   ```
+
+4. **Iniciar el servidor**:
    ```bash
    python manage.py runserver
    ```
 
-### Frontend:
+   La API estará disponible en `http://localhost:8000`.
+
+---
+
+### Frontend (Android)
+
 1. Abre el proyecto en Android Studio.
-2. Conéctalo a tu dispositivo/emulador.
-3. Ejecuta la aplicación.
+2. Conéctalo a un dispositivo/emulador.
+3. Configura el archivo `base_url` del proyecto Android con la URL donde está corriendo la API.
+4. Ejecuta la aplicación desde Android Studio.
+
+---
 
 ## Cómo Contribuir
+
 1. Haz un fork del repositorio.
 2. Crea una rama nueva (`git checkout -b feature/nueva-funcionalidad`).
 3. Realiza tus cambios y realiza commits descriptivos.
